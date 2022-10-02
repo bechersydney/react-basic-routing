@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Product = () => {
+    const navigate = useNavigate();
+    // navigate("/welcome", { replace: true });
+    // navigate(-1)  go backward page or go forward
     return (
         <>
             <h1>Product page!</h1>

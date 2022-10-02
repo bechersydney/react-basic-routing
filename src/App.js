@@ -1,28 +1,29 @@
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import MainHeader from "./components/MainHeader";
+import ProductDetail from "./components/ProductDetail";
 import Product from "./components/Products";
 import Welcome from "./components/Welcome";
-import ProductDetail from "./components/ProductDetail";
 
 const App = () => {
     return (
         <>
             <MainHeader />
-            {/* Switch = make only one active route */}
-            <Switch>
-                <Route path="/" exact>
-                    <Redirect to="/welcome" />
+
+            <Routes>
+                {/* used when accept all path start with welcome and much usable in nested routes
+                 */}
+                <Route path="/welcome/*" element={<Welcome />}>
+                    <Route path="new-user" element={<p>Welcome new user</p>} />
                 </Route>
-                <Route path="/welcome">
-                    <Welcome />
-                </Route>
-                <Route path="/products" exact>
-                    <Product />
-                </Route>
-                <Route path="/products/:id">
-                    <ProductDetail />
-                </Route>
-            </Switch>
+
+                <Route path="/products" exact element={<Product />} />
+
+                <Route
+                    path="/products/:productId"
+                    element={<ProductDetail />}
+                />
+                <Route path="/" element={<Navigate to="/welcome" replace />} />
+            </Routes>
         </>
     );
 };
